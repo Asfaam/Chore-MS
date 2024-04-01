@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     
     // Write a query to SELECT a record from the people table using the email
-    $sql = "SELECT pid, passwd FROM People WHERE email = ?";
+    $sql = "SELECT pid, passwd FROM people WHERE email = ?";
     
     // Prepare the statement
     $stmt = $conn->prepare($sql);

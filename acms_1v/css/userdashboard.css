@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+}
+
+.sidebar {
+    background-color: #333;
+    color: white;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-item {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid #444;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: #555;
+}
+
+.main-content {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+.dashboard-header {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.dashboard-container {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chore-section {
+    margin: 20px;
+}
+
+.chore-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.chore-table th, .chore-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.chore-table thead {
+    background-color: #f2f2f2;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding-top: 0;
+    }
+
+    .nav-item {
+        text-align: center;
+        padding: 15px;
+        border-bottom: none; /* Remove the bottom border for small screens */
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 20px 10px;
+    }
+
+    .dashboard-header {
+        padding: 10px;
+    }
+}
