@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
 
+body {
+	font-family: Goudy Old Style;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -548,4 +552,18 @@ body {
 	#content main .table-data .todo .todo-list {
 		min-width: 420px;
 	}
+}
+
+
+/* Default styles for logout link */
+.logout-link {
+    color: black; /* Default color */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Hover styles for logout link */
+.logout-link:hover {
+    color: red; /* Change color on hover */
+    text-decoration: underline; /* Add underline on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
 }

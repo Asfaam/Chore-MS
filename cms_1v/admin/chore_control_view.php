@@ -15,6 +15,21 @@ if(!isLoggedIn()) {
     exit();
 }
 
+// Check user role
+$userRoleID = getUserRoleID();
+if ($userRoleID !== false) {
+    // Check if the user is not an admin or a super admin
+    if ($userRoleID != 2 && $userRoleID != 1) {
+        // Redirect to main dashboard|user homepage for non-admin users
+        header("Location: adminPage.php");
+        die();
+    }
+} else {
+    // Redirect to login page if user role is not available
+    header("Location: ../Login/register_view.php");
+    die();
+}
+
 
 ?>
 
@@ -24,10 +39,11 @@ if(!isLoggedIn()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Chore</title>
-
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <style>
         body {
             max-width: 100%;
+	    background-color: beige;
            
             
         }
@@ -72,7 +88,7 @@ if(!isLoggedIn()) {
         }
 
         table {
-            width: 100%;
+            width: 99%;
             margin-top: 20px;
         }
 
@@ -96,6 +112,24 @@ if(!isLoggedIn()) {
             width: 33%; /* set a specific width for the third column */
         }
 
+	.edit-link {
+        	position: relative;
+        	display: inline-block;
+    	}
+
+    	.edit-link:hover::after {
+        	content: "restricted access except for super admin";
+        	position: absolute;
+    		top: calc(100% + 5px); 
+    		left: calc(50% - 100px); 
+        	transform: translateX(-50%);
+        	background-color:#ffcc00;
+        	color: red;
+        	padding: 10px; 
+    		border-radius: 5px;
+    		font-family: Goudy Old Style;
+    		font-size: 18px;
+    	}
     </style>
     
 </head>
@@ -105,7 +139,7 @@ if(!isLoggedIn()) {
     <!-- Chore Form -->
     <form action="../action/add_chore_action.php" method="POST" id="choreForm">
         <label for="choreName">Chore Name:</label>
-	<input type="text" name="choreName" id="choreName" placeholder="Enter chore name" required pattern="[a-zA-Z\s]+" title="Chore name must contain only letters or spaces">
+	<input type="text" name="choreName" id="choreName" placeholder="Enter chore name" required pattern="^[A-Z][a-zA-Z0-9\s~!@#\$%\^&\*\(\)_\"\',\`\/\[\]\{\}=+\-\.]*$" title="Invalid literal">
         <button type="submit" name="submit" id="submitBtn">Add Chore</button>
     </form>
     <br>
@@ -120,6 +154,10 @@ if(!isLoggedIn()) {
             <?php display_all_chores(); ?>
         </tbody>
     </table>
-
+    <div>
+	<a href="adminPage.php">
+            <span style="float:right"><strong><button><i class='bx bx-chevron-left'> Back </i></button></strong></span>
+	</a>
+    </div>
 </body>
 </html>

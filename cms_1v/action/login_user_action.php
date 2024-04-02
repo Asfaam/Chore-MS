@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     
     // Write a query to SELECT a record from the people table using the email
-    $sql = "SELECT pid, passwd FROM People WHERE email = ?";
+    $sql = "SELECT pid, passwd, rid FROM people WHERE email = ?";
     
     // Prepare the statement
     $stmt = $conn->prepare($sql);
@@ -30,18 +30,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if any row was returned
     if ($stmt->num_rows == 1) {
         // Bind the result variables
-        $stmt->bind_result($pid, $hashed_password);
+        $stmt->bind_result($pid, $hashed_password, $rid);
         
         // Fetch the record
         $stmt->fetch();
         
         // Verify password user provided against database record using password_verify
         if (password_verify($password, $hashed_password)) {
-            // Password is correct, create session for user id
+            // Password is correct, create session for user id and role id
             $_SESSION['user_id'] = $pid;
+            $_SESSION['role_id'] = $rid;
             
-            // Redirect to home page or wherever you want
-            header("Location: ../view/userPage.php");
+            // Redirect based on role ID
+            if ($rid == 1 || $rid == 2) {
+                // Redirect admin and superadmin to adminPage.php
+                header("Location: ../admin/adminPage.php");
+            } elseif ($rid == 3) {
+                // Redirect standard user to home_view.php
+                header("Location: ../view/home_view.php");
+            }
             exit();
         } else {
             // Incorrect password, provide appropriate response

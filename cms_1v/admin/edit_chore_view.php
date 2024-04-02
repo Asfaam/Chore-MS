@@ -2,13 +2,30 @@
 // Include the core.php file for user authentication
 require_once('../settings/core.php');
 
+echo '<link rel="stylesheet" type="text/css" href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css">';
+
 // Include the get_a_chore_action.php file
 include '../action/get_a_chore_action.php';
+
+// Check user role
+$userRoleID = getUserRoleID();
+if ($userRoleID !== false) {
+    // Check if the user is  not a super admin
+    if ($userRoleID != 1) {
+        // Redirect to main dashboard|user homepage for non-admin users
+        header("Location: chore_control_view.php");
+        die();
+    }
+} else {
+    // Redirect to login page if user role is not available
+    header("Location: ../Login/register_view.php");
+    die();
+}
 
 // Check if the user is logged in
 if (!isLoggedIn()) {
     // Redirect to login page
-    header("Location: ../view/register.php");
+    header("Location: ../Login/register_view.php");
     exit();
 }
 
@@ -32,7 +49,9 @@ if (isset($_GET['chore_id'])) {
             <title>Edit Chore</title>
               <style>
         	body {
-            	    max-width: 100%;   
+            	    max-width: 100%;
+		    font-family: Times New Roman;
+ 		    background-color: beige;   
         	}
             
         	h1{
@@ -74,13 +93,18 @@ if (isset($_GET['chore_id'])) {
         </head>
         <body>
             <h1>Edit Chore</h1>
-            <form action="../action/edit_a_chore_action.php" method="POST">
+            <form action="../action/edit_a_chore_action.php" method="POST" >
                 <input type="hidden" name="chore_id" value="<?php echo $chore['cid']; ?>">
                 <label for="chore_name">Chore Name:</label>
                 <input type="text" name="chore_name" id="chore_name" value="<?php echo $chore['chorename']; ?>" required>
                 
                 <button type="submit" name="submit">Update Chore</button>
             </form>
+            <div>
+	        <a href="../admin/edit_chore_view.php">
+                    <span style="float:right"><strong><button><i class='bx bx-chevron-left'> Back </i></button></strong></span>
+	        </a>
+            </div>
         </body>
         </html>
         <?php

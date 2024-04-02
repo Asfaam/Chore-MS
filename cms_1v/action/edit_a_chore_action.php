@@ -1,7 +1,6 @@
 <?php
 $_POST['chore_id'];
 
-// Include the connection file
 include '../settings/connection.php';
 
 // Check if the form is submitted

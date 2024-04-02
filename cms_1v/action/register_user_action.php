@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Execute the query
     if ($stmt->execute()) {
         // Registration successful, redirect to login_view page
-        header("Location: ../Login/register_view.php");
+        header("Location: ../Login/register_view.php?success=1");
         exit();
     } else {
         // Registration failed, display error on register_view page

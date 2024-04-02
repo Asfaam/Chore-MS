@@ -18,7 +18,7 @@ function validateLogin() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
 
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~`!@#$%^&*()+={}[\]:;"'*|<>?,/._-]{8,}$/;
   
     if (!emailRegex.test(email)) {
       alert('Please enter a valid email address');
@@ -26,7 +26,7 @@ function validateLogin() {
     }
   
     if (!passwordRegex.test(password)) {
-      alert('Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, and one number');
+      alert('Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and allowed special characters: ~`!@#$%^&*()+={}[\]:;"\'*|<>?,/._-');
       return false;
     }
   
